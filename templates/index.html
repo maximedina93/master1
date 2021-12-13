@@ -17,7 +17,6 @@
    <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}">
    <link rel="stylesheet" href="{% static 'fonts/flaticon/font/flaticon.css' %}">
    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
-
    <link rel="stylesheet" href="{% static 'css/style.css' %}">
   {% block extracss %}
   {% endblock extracss %}
@@ -40,8 +39,9 @@
        <div class="row align-items-center">
 
          <div class="col-6 col-xl-6 logo">
-           <h1 class="mb-0"><a href="index.html" class="text-black h2 mb-0">BLOG ODS</a></h1>
+           <h1 class="mb-0"><a href="index.html" class="text-black h2 mb-0">EcoGreen</a></h1>
          </div>
+         
 
          <div class="col-6 mr-auto py-3 text-right" style="position: relative; top: 3px;">
            <div class="social-icons d-inline">
@@ -58,7 +58,7 @@
              <ul class="site-menu js-clone-nav mx-auto d-none d-lg-block mb-0">
                <li class="active"><a href="{% url 'Principal:index' %}">Inicio</a></li>
                <li><a href="{% url 'Principal:post_ODS' %}">ODS</a></li>
-               <li><a href="{% url 'Principal:post_extra' %}">Información extra</a></li>
+               <li><a href="{% url 'Principal:post_extra' %}"> Noticias Globales</a></li>
                <li><a href="{% url 'Principal:formulario_contacto' %}">Contacto</a></li>
              </ul>
            </nav>
@@ -76,8 +76,8 @@
                <span class="post-category text-white bg-success mb-3">{{ principal.categoria | upper }}</span>
                <h2 class="mb-4"><a href="{% url 'Principal:detalle_post' principal.slug %}">{{ principal.titulo }}</a></h2>
                <div class="post-meta align-items-center text-left">
-                 <figure class="author-figure mb-0 mr-3 float-left"><img src="{{ principal.imagen_referencial.url }}" alt="Image" class="img-fluid"></figure>
-                 <span class="d-inline-block mt-1">{{ principal }}</span>
+                 <figure class="author-figure mb-0 mr-3 float-left"><img src="{{ principal.autor.imagen_referencial.url }}" alt="Image" class="img-fluid"></figure>
+                 <span class="d-inline-block mt-1">Autor: {{ principal.autor }}</span>
                  <span>{{ principal.fecha_publicacion }}</span>
                </div>
              </div>
@@ -145,8 +145,8 @@
              <span class="post-category text-white bg-primary mb-3"></span>
              <h2><a href="{% url 'Principal:detalle_post' post_ODS %}"></a>{{ post_ODS.titulo }}</h2>
              <div class="post-meta align-items-center text-left clearfix">
-               <figure class="author-figure mb-0 mr-3 float-left"><img src="{{ post_ODS.imagen_referencial.url }}" alt="Image" class="img-fluid"></figure>
-               <span class="d-inline-block mt-1">POR <a href="#">{{ post_ODS }}</a></span>
+               <figure class="author-figure mb-0 mr-3 float-left"><img src="{{ post_ODS.autor.imagen_referencial.url }}" alt="Image" class="img-fluid"></figure>
+               <span class="d-inline-block mt-1">POR <a href="#">{{ post_ODS.autor }}</a></span>
                <span>{{ post_ODS.fecha_publicacion }}</span>
              </div>
              <p>{{ post_ODS.descripcion }}</p>
@@ -162,8 +162,8 @@
              <span class="post-category text-white bg-primary mb-3"></span>
              <h2><a href="{% url 'Principal:detalle_post' post_extra %}"></a>{{ post_extra.titulo }}</h2>
              <div class="post-meta align-items-center text-left clearfix">
-               <figure class="author-figure mb-0 mr-3 float-left"><img src="{{ post_extra.imagen_referencial.url }}" alt="Image" class="img-fluid"></figure>
-               <span class="d-inline-block mt-1">POR <a href="#">{{ post_extra }}</a></span>
+               <figure class="author-figure mb-0 mr-3 float-left"><img src="{{ post_extra.autor.imagen_referencial.url }}" alt="Image" class="img-fluid"></figure>
+               <span class="d-inline-block mt-1">POR <a href="#">{{ post_extra.autor }}</a></span>
                <span>{{ post_extra.fecha_publicacion }}</span>
              </div>
              <p>{{ post_extra.descripcion }}</p>
@@ -178,7 +178,7 @@
        <div class="row mb-5">
          <div class="col-md-4">
            <h3 class="footer-heading mb-4">Nosotros</h3>
-           <p>{{ "Grupo 7 &copy" }}</p>
+           <p>{{ web.nosotros }}</p>
          </div>
          <div class="col-md-3 ml-auto">
            <h3 class="footer-heading mb-4">Menú Rápido</h3>
@@ -194,6 +194,8 @@
              <form action="{% url 'Principal:suscribirse' %}" method="post" class="form-footer-subscribe">
                {% csrf_token %}
                <div class="form-group d-flex">
+                <link rel="stylesheet" type="text/css" href="style.css">
+
                  <input type="text" class="form-control" name="correo">
                  <button type="submit" class="btn btn-primary text-white">SUSCRIBIRSE</button>
                </div>
